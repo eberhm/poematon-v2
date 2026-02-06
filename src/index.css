@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Custom scrollbar styling for verse/poem sections */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(51, 51, 51, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cfc140;
+}
