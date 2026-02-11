@@ -4,6 +4,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { Box } from '@mui/material'
 import { theme } from './theme'
 import { WelcomeScreen } from './components/WelcomeScreen'
+import { PoematonProvider } from './context/PoematonContext'
+import { PoematonSectionList } from './components/PoematonSectionList'
 import { enterFullscreen } from './utils/fullscreen'
 import backgroundImage from '/background.portada.png'
 
@@ -17,8 +19,7 @@ function App() {
     // Fade out welcome screen after a short delay
     setTimeout(() => {
       setShowWelcome(false)
-      // TODO: Start countdown timer
-      // TODO: Begin background music playback
+      // Timer and music are started by PoematonSectionList
     }, 500)
   }
 
@@ -38,12 +39,11 @@ function App() {
         {/* Welcome Screen */}
         <WelcomeScreen open={showWelcome} onStart={handleStart} />
 
-        {/* Main Application - TODO */}
+        {/* Main Application */}
         {!showWelcome && (
-          <Box sx={{ padding: 4, color: '#fff' }}>
-            <h1>Main Application</h1>
-            <p>TODO: Implement main interface</p>
-          </Box>
+          <PoematonProvider>
+            <PoematonSectionList />
+          </PoematonProvider>
         )}
       </Box>
     </ThemeProvider>
