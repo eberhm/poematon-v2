@@ -2,15 +2,18 @@ import { useDroppable } from '@dnd-kit/core'
 import { Box, Typography } from '@mui/material'
 import type { Verse } from '../types'
 import { DraggableVerseCard } from './DraggableVerseCard'
+import { MaxVersesAlert } from './MaxVersesAlert'
 
 export interface VersesPanelProps {
   verses: Verse[]
+  showMaxVersesAlert?: boolean
+  dragDisabled?: boolean
 }
 
 /**
  * Left panel displaying all available verses with drag support
  */
-export function VersesPanel({ verses }: VersesPanelProps) {
+export function VersesPanel({ verses, showMaxVersesAlert = false, dragDisabled = false }: VersesPanelProps) {
   const { setNodeRef } = useDroppable({
     id: 'verses-panel',
     data: {
@@ -45,6 +48,7 @@ export function VersesPanel({ verses }: VersesPanelProps) {
         ref={setNodeRef}
         sx={{
           height: '65vh',
+          overflowX: 'hidden',
           overflowY: 'auto',
           paddingRight: 1,
           '&::-webkit-scrollbar': {
@@ -63,8 +67,9 @@ export function VersesPanel({ verses }: VersesPanelProps) {
           },
         }}
       >
+        <MaxVersesAlert show={showMaxVersesAlert} />
         {verses.map((verse) => (
-          <DraggableVerseCard key={verse.id} verse={verse} />
+          <DraggableVerseCard key={verse.id} verse={verse} disabled={dragDisabled} />
         ))}
       </Box>
     </Box>

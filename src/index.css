@@ -58,7 +58,8 @@ body {
   }
 
   .print-verse {
-    margin: 10px 0;
+    margin: 6px 0;
+    padding-left: 30px;
     font-size: 14px;
     line-height: 1.6;
   }
@@ -68,6 +69,11 @@ body {
     font-weight: 700;
     margin-bottom: 15px;
     margin-top: 30px;
+  }
+
+  .print-attributions {
+    padding-left: 20px;
+    list-style-type: disc;
   }
 
   .print-attribution {

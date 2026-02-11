@@ -29,7 +29,7 @@ export interface PoematonContextState {
   // Actions
   loadVerses: (version?: string) => Promise<void>
   startSession: () => void
-  addVerseToPoem: (verse: Verse) => void
+  addVerseToPoem: (verse: Verse, index?: number) => void
   removeVerseFromPoem: (id: string) => void
   reorderPoemVerses: (oldIndex: number, newIndex: number) => void
   handlePrint: () => void
@@ -97,16 +97,16 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
     playMusic()
   }, [startTimer, playMusic])
 
-  const addVerseToPoem = useCallback((verse: Verse) => {
+  const addVerseToPoem = useCallback((verse: Verse, index?: number) => {
     if (!canAddVerseToPoem(poemVerses)) {
-      setShowMaxVersesAlert(true)
-      setTimeout(() => setShowMaxVersesAlert(false), 5000)
       return
     }
 
-    const newPoemVerses = addVerse(poemVerses, verse)
+    const newPoemVerses = addVerse(poemVerses, verse, index)
     setPoemVerses(newPoemVerses)
-    setShowMaxVersesAlert(false)
+    if (!canAddVerseToPoem(newPoemVerses)) {
+      setShowMaxVersesAlert(true)
+    }
   }, [poemVerses])
 
   const removeVerseFromPoem = useCallback((id: string) => {

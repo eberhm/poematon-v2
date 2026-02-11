@@ -27,28 +27,28 @@ export function PrintContent({ poemVerses }: PrintContentProps) {
 
       {/* Verses */}
       <div className="print-verses">
-        {poemVerses.map((verse, index) => (
+        {poemVerses.map((verse) => (
           <div key={verse.id} className="print-verse">
-            {index + 1}. {verse.value}
+            {verse.value}
           </div>
         ))}
       </div>
 
       {/* Attributions Title */}
       <div className="print-attributions-title">
-        Poema confeccionado con los versos de los autores:
+        Poema confeccionado con los versos de los autores (autoría, poema):
       </div>
 
       {/* Attributions */}
-      <div className="print-attributions">
-        {poemVerses.map((verse, index) => (
-          <div key={verse.id} className="print-attribution">
-            {index + 1}. {verse.autor}
-            {verse.poema && ` - "${verse.poema}"`}
-            {verse.poemario && ` (${verse.poemario})`}
-          </div>
+      <ul className="print-attributions">
+        {poemVerses.map((verse) => (
+          <li key={verse.id} className="print-attribution">
+            {verse.autor}
+            {verse.poema && `, ${verse.poema}`}
+            {verse.poemario && `, ${verse.poemario}`}
+          </li>
         ))}
-      </div>
+      </ul>
     </Box>
   )
 }

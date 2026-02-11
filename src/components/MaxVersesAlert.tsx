@@ -15,8 +15,6 @@ export function MaxVersesAlert({ show }: MaxVersesAlertProps) {
       severity="error"
       sx={{
         marginBottom: 2,
-        backgroundColor: '#f44336',
-        color: '#fff',
       }}
     >
       Has llegado al número máximo de versos, pero aún puedes reordenar tu poema o sustituir versos.

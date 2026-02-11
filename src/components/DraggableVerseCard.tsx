@@ -5,14 +5,16 @@ import { VerseCard } from './VerseCard'
 export interface DraggableVerseCardProps {
   verse: Verse
   isDragging?: boolean
+  disabled?: boolean
 }
 
 /**
  * Draggable wrapper for VerseCard in VERSOS panel
  */
-export function DraggableVerseCard({ verse, isDragging = false }: DraggableVerseCardProps) {
+export function DraggableVerseCard({ verse, isDragging = false, disabled = false }: DraggableVerseCardProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: verse.id,
+    disabled,
     data: {
       type: 'verse',
       verse,

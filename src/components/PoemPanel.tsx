@@ -5,12 +5,13 @@ import { SortableVerseCard } from './SortableVerseCard'
 
 export interface PoemPanelProps {
   poemVerses: Verse[]
+  insertPreviewIndex?: number | null
 }
 
 /**
  * Right panel for composing the poem with sortable support
  */
-export function PoemPanel({ poemVerses }: PoemPanelProps) {
+export function PoemPanel({ poemVerses, insertPreviewIndex }: PoemPanelProps) {
   const { setNodeRef } = useDroppable({
     id: 'poem-panel',
     data: {
@@ -44,7 +45,8 @@ export function PoemPanel({ poemVerses }: PoemPanelProps) {
       <Box
         ref={setNodeRef}
         sx={{
-          height: '65vh',
+          flex: 1,
+          minHeight: 0,
           overflowY: 'auto',
           paddingRight: 1,
           '&::-webkit-scrollbar': {
@@ -63,7 +65,7 @@ export function PoemPanel({ poemVerses }: PoemPanelProps) {
           },
         }}
       >
-        {poemVerses.length === 0 ? (
+        {poemVerses.length === 0 && insertPreviewIndex == null ? (
           <Typography
             sx={{
               color: '#666',
@@ -75,7 +77,35 @@ export function PoemPanel({ poemVerses }: PoemPanelProps) {
             Arrastra versos aquí para crear tu poema
           </Typography>
         ) : (
-          poemVerses.map((verse) => <SortableVerseCard key={verse.id} verse={verse} />)
+          <>
+            {poemVerses.map((verse, index) => (
+              <Box key={verse.id}>
+                {insertPreviewIndex === index && (
+                  <Box
+                    sx={{
+                      height: '40px',
+                      borderRadius: '14px',
+                      border: '2px dashed #999',
+                      marginBottom: '8px',
+                      transition: 'height 0.2s ease',
+                    }}
+                  />
+                )}
+                <SortableVerseCard verse={verse} />
+              </Box>
+            ))}
+            {insertPreviewIndex != null && insertPreviewIndex >= poemVerses.length && (
+              <Box
+                sx={{
+                  height: '40px',
+                  borderRadius: '14px',
+                  border: '2px dashed #999',
+                  marginBottom: '8px',
+                  transition: 'height 0.2s ease',
+                }}
+              />
+            )}
+          </>
         )}
       </Box>
     </Box>

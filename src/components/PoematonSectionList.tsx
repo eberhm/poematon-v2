@@ -3,6 +3,7 @@ import { Box, Grid, Container } from '@mui/material'
 import {
   DndContext,
   DragOverlay,
+  DragOverEvent,
   PointerSensor,
   KeyboardSensor,
   useSensor,
@@ -15,7 +16,6 @@ import { useState } from 'react'
 import { usePoematonContext } from '../context/PoematonContext'
 import { Timer } from './Timer'
 import { PrintButton } from './PrintButton'
-import { MaxVersesAlert } from './MaxVersesAlert'
 import { DraggableVerseCard } from './DraggableVerseCard'
 import { VersesPanel } from './VersesPanel'
 import { PoemPanel } from './PoemPanel'
@@ -43,6 +43,7 @@ export function PoematonSectionList() {
   } = usePoematonContext()
 
   const [activeVerse, setActiveVerse] = useState<Verse | null>(null)
+  const [insertPreviewIndex, setInsertPreviewIndex] = useState<number | null>(null)
 
   // Configure drag sensors
   const sensors = useSensors(
@@ -70,9 +71,34 @@ export function PoematonSectionList() {
     }
   }
 
+  const handleDragOver = (event: DragOverEvent) => {
+    const { active, over } = event
+    const activeData = active.data.current
+
+    // Only show preview when dragging from VERSOS over the poem area
+    if (activeData?.type !== 'verse') {
+      setInsertPreviewIndex(null)
+      return
+    }
+
+    if (!over) {
+      setInsertPreviewIndex(null)
+      return
+    }
+
+    const overData = over.data.current
+    if (overData?.type === 'poem') {
+      const overIndex = poemVerses.findIndex((v) => v.id === over.id)
+      setInsertPreviewIndex(overIndex !== -1 ? overIndex : poemVerses.length)
+    } else {
+      setInsertPreviewIndex(null)
+    }
+  }
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
     setActiveVerse(null)
+    setInsertPreviewIndex(null)
 
     if (!over) return
 
@@ -82,7 +108,8 @@ export function PoematonSectionList() {
     // Scenario 1: Dragging from VERSOS to TU POEMA
     if (activeData?.type === 'verse' && overData?.type === 'poem') {
       const verse = activeData.verse as Verse
-      addVerseToPoem(verse)
+      const overIndex = poemVerses.findIndex((v) => v.id === over.id)
+      addVerseToPoem(verse, overIndex !== -1 ? overIndex : undefined)
       return
     }
 
@@ -93,6 +120,9 @@ export function PoematonSectionList() {
 
       if (activeIndex !== -1 && overIndex !== -1 && activeIndex !== overIndex) {
         reorderPoemVerses(activeIndex, overIndex)
+      } else if (activeIndex !== -1 && overIndex === -1) {
+        // Dropped on poem panel empty space — move to last position
+        reorderPoemVerses(activeIndex, poemVerses.length - 1)
       }
       return
     }
@@ -122,21 +152,18 @@ export function PoematonSectionList() {
         <PrintButton onClick={handlePrint} />
       </Box>
 
-      {/* Max Verses Alert */}
-      <MaxVersesAlert show={showMaxVersesAlert} />
-
       {/* Main Interface */}
-      <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <DndContext sensors={sensors} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
         <Grid container spacing={4}>
           {/* VERSOS Panel (Left) */}
           <Grid item xs={12} md={6}>
-            <VersesPanel verses={allVerses} />
+            <VersesPanel verses={allVerses} showMaxVersesAlert={showMaxVersesAlert} dragDisabled={showMaxVersesAlert} />
           </Grid>
 
           {/* TU POEMA Panel (Right) */}
           <Grid item xs={12} md={6}>
             <SortableContext items={poemVerses.map((v) => v.id)} strategy={verticalListSortingStrategy}>
-              <PoemPanel poemVerses={poemVerses} />
+              <PoemPanel poemVerses={poemVerses} insertPreviewIndex={insertPreviewIndex} />
             </SortableContext>
           </Grid>
         </Grid>
