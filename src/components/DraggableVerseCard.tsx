@@ -11,7 +11,11 @@ export interface DraggableVerseCardProps {
 /**
  * Draggable wrapper for VerseCard in VERSOS panel
  */
-export function DraggableVerseCard({ verse, isDragging = false, disabled = false }: DraggableVerseCardProps) {
+export function DraggableVerseCard({
+  verse,
+  isDragging = false,
+  disabled = false,
+}: DraggableVerseCardProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: verse.id,
     disabled,

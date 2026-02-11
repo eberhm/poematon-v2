@@ -137,7 +137,12 @@ describe('board utilities', () => {
       // Move verse-2 (index 1) to index 3
       const result = reorderPoemVerses(poem, 1, 3)
 
-      expect(result.map((v) => v.id)).toEqual(['verse-1', 'verse-3', 'verse-4', 'verse-2'])
+      expect(result.map((v) => v.id)).toEqual([
+        'verse-1',
+        'verse-3',
+        'verse-4',
+        'verse-2',
+      ])
     })
 
     it('should move verse forward', () => {

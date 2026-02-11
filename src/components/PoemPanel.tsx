@@ -94,17 +94,18 @@ export function PoemPanel({ poemVerses, insertPreviewIndex }: PoemPanelProps) {
                 <SortableVerseCard verse={verse} />
               </Box>
             ))}
-            {insertPreviewIndex != null && insertPreviewIndex >= poemVerses.length && (
-              <Box
-                sx={{
-                  height: '40px',
-                  borderRadius: '14px',
-                  border: '2px dashed #999',
-                  marginBottom: '8px',
-                  transition: 'height 0.2s ease',
-                }}
-              />
-            )}
+            {insertPreviewIndex != null &&
+              insertPreviewIndex >= poemVerses.length && (
+                <Box
+                  sx={{
+                    height: '40px',
+                    borderRadius: '14px',
+                    border: '2px dashed #999',
+                    marginBottom: '8px',
+                    transition: 'height 0.2s ease',
+                  }}
+                />
+              )}
           </>
         )}
       </Box>

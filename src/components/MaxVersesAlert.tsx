@@ -23,7 +23,8 @@ export function MaxVersesAlert({ show }: MaxVersesAlertProps) {
         },
       }}
     >
-      Has llegado al número máximo de versos, pero aún puedes reordenar tu poema o sustituir versos.
+      Has llegado al número máximo de versos, pero aún puedes reordenar tu poema
+      o sustituir versos.
     </Alert>
   )
 }

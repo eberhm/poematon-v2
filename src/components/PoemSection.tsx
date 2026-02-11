@@ -66,9 +66,7 @@ export function PoemSection({ poemVerses }: PoemSectionProps) {
             Arrastra versos aquí para crear tu poema
           </Typography>
         ) : (
-          poemVerses.map((verse) => (
-            <VerseCard key={verse.id} verse={verse} />
-          ))
+          poemVerses.map((verse) => <VerseCard key={verse.id} verse={verse} />)
         )}
       </Box>
     </Box>

@@ -31,6 +31,8 @@ describe('App', () => {
     // Wait for fade out transition
     await new Promise((resolve) => setTimeout(resolve, 600))
 
-    expect(screen.queryByText('Haz tu poema ready-made')).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('Haz tu poema ready-made')
+    ).not.toBeInTheDocument()
   })
 })

@@ -18,7 +18,11 @@ export function canAddVerseToPoem(poemVerses: Verse[]): boolean {
  * @param verse - Verse to add
  * @returns New array with added verse (regenerated ID), or original if max reached
  */
-export function addVerseToPoem(poemVerses: Verse[], verse: Verse, index?: number): Verse[] {
+export function addVerseToPoem(
+  poemVerses: Verse[],
+  verse: Verse,
+  index?: number
+): Verse[] {
   if (!canAddVerseToPoem(poemVerses)) {
     return poemVerses
   }

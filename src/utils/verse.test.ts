@@ -116,7 +116,9 @@ describe('verse utilities', () => {
       const shuffled = shuffleVerses(mockVerses)
 
       // With controlled random, we should get a different order
-      const isDifferent = shuffled.some((verse, idx) => verse.id !== mockVerses[idx].id)
+      const isDifferent = shuffled.some(
+        (verse, idx) => verse.id !== mockVerses[idx].id
+      )
       expect(isDifferent).toBe(true)
 
       mockRandom.mockRestore()

@@ -32,8 +32,8 @@ describe('useAudio', () => {
   it('should set music volume to 0.4 and loop to true', () => {
     renderHook(() => useAudio())
 
-    const musicCalls = (global.Audio as unknown as ReturnType<typeof vi.fn>).mock
-      .results[0]
+    const musicCalls = (global.Audio as unknown as ReturnType<typeof vi.fn>)
+      .mock.results[0]
     expect(musicCalls.value.volume).toBe(0.4)
     expect(musicCalls.value.loop).toBe(true)
   })
@@ -41,8 +41,8 @@ describe('useAudio', () => {
   it('should set warning volume to 0.4', () => {
     renderHook(() => useAudio())
 
-    const warningCalls = (global.Audio as unknown as ReturnType<typeof vi.fn>).mock
-      .results[1]
+    const warningCalls = (global.Audio as unknown as ReturnType<typeof vi.fn>)
+      .mock.results[1]
     expect(warningCalls.value.volume).toBe(0.4)
   })
 
@@ -75,10 +75,10 @@ describe('useAudio', () => {
 
     result.current.stopAll()
 
-    const musicAudio = (global.Audio as unknown as ReturnType<typeof vi.fn>).mock
-      .results[0].value
-    const warningAudio = (global.Audio as unknown as ReturnType<typeof vi.fn>).mock
-      .results[1].value
+    const musicAudio = (global.Audio as unknown as ReturnType<typeof vi.fn>)
+      .mock.results[0].value
+    const warningAudio = (global.Audio as unknown as ReturnType<typeof vi.fn>)
+      .mock.results[1].value
 
     expect(musicAudio.currentTime).toBe(0)
     expect(warningAudio.currentTime).toBe(0)
@@ -93,7 +93,9 @@ describe('useAudio', () => {
   })
 
   it('should handle play errors gracefully', async () => {
-    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const consoleWarnSpy = vi
+      .spyOn(console, 'warn')
+      .mockImplementation(() => {})
     mockPlay.mockRejectedValueOnce(new Error('Play failed'))
 
     const { result } = renderHook(() => useAudio())
@@ -112,7 +114,9 @@ describe('useAudio', () => {
   })
 
   it('should handle Audio constructor errors gracefully', () => {
-    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const consoleWarnSpy = vi
+      .spyOn(console, 'warn')
+      .mockImplementation(() => {})
     global.Audio = vi.fn().mockImplementation(() => {
       throw new Error('Audio not supported')
     }) as unknown as typeof Audio

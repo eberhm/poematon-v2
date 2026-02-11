@@ -43,7 +43,9 @@ export function PoematonSectionList() {
   } = usePoematonContext()
 
   const [activeVerse, setActiveVerse] = useState<Verse | null>(null)
-  const [insertPreviewIndex, setInsertPreviewIndex] = useState<number | null>(null)
+  const [insertPreviewIndex, setInsertPreviewIndex] = useState<number | null>(
+    null
+  )
 
   // Configure drag sensors
   const sensors = useSensors(
@@ -147,36 +149,53 @@ export function PoematonSectionList() {
         {/* Timer */}
         <Timer timeLeft={timeLeft} />
 
-      {/* Print Button */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 2 }}>
-        <PrintButton onClick={handlePrint} />
-      </Box>
+        {/* Print Button */}
+        <Box
+          sx={{ display: 'flex', justifyContent: 'center', marginBottom: 2 }}
+        >
+          <PrintButton onClick={handlePrint} />
+        </Box>
 
-      {/* Main Interface */}
-      <DndContext sensors={sensors} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
-        <Grid container spacing={4}>
-          {/* VERSOS Panel (Left) */}
-          <Grid item xs={12} md={6}>
-            <VersesPanel verses={allVerses} showMaxVersesAlert={showMaxVersesAlert} dragDisabled={showMaxVersesAlert} />
+        {/* Main Interface */}
+        <DndContext
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
+        >
+          <Grid container spacing={4}>
+            {/* VERSOS Panel (Left) */}
+            <Grid item xs={12} md={6}>
+              <VersesPanel
+                verses={allVerses}
+                showMaxVersesAlert={showMaxVersesAlert}
+                dragDisabled={showMaxVersesAlert}
+              />
+            </Grid>
+
+            {/* TU POEMA Panel (Right) */}
+            <Grid item xs={12} md={6}>
+              <SortableContext
+                items={poemVerses.map((v) => v.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <PoemPanel
+                  poemVerses={poemVerses}
+                  insertPreviewIndex={insertPreviewIndex}
+                />
+              </SortableContext>
+            </Grid>
           </Grid>
 
-          {/* TU POEMA Panel (Right) */}
-          <Grid item xs={12} md={6}>
-            <SortableContext items={poemVerses.map((v) => v.id)} strategy={verticalListSortingStrategy}>
-              <PoemPanel poemVerses={poemVerses} insertPreviewIndex={insertPreviewIndex} />
-            </SortableContext>
-          </Grid>
-        </Grid>
-
-        {/* Drag Overlay */}
-        <DragOverlay>
-          {activeVerse ? (
-            <Box sx={{ opacity: 0.8, cursor: 'grabbing' }}>
-              <DraggableVerseCard verse={activeVerse} isDragging={false} />
-            </Box>
-          ) : null}
-        </DragOverlay>
-      </DndContext>
+          {/* Drag Overlay */}
+          <DragOverlay>
+            {activeVerse ? (
+              <Box sx={{ opacity: 0.8, cursor: 'grabbing' }}>
+                <DraggableVerseCard verse={activeVerse} isDragging={false} />
+              </Box>
+            ) : null}
+          </DragOverlay>
+        </DndContext>
       </Container>
     </>
   )

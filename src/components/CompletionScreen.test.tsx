@@ -16,13 +16,17 @@ describe('CompletionScreen', () => {
 
   it('displays completion message', () => {
     renderWithTheme(<CompletionScreen open={true} />)
-    expect(screen.getByText('Has completado tu poema ready-made')).toBeInTheDocument()
+    expect(
+      screen.getByText('Has completado tu poema ready-made')
+    ).toBeInTheDocument()
   })
 
   it('displays auto-reload message', () => {
     renderWithTheme(<CompletionScreen open={true} />)
     expect(
-      screen.getByText('La página se recargará automáticamente en 10 segundos...')
+      screen.getByText(
+        'La página se recargará automáticamente en 10 segundos...'
+      )
     ).toBeInTheDocument()
   })
 

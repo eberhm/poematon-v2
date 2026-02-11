@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+} from 'react'
 import type { Verse } from '../types'
 import { loadVerses as loadVersesData, getVersionFromURL } from '../data'
 import { shuffleVerses } from '../utils/verse'
@@ -35,7 +41,9 @@ export interface PoematonContextState {
   handlePrint: () => void
 }
 
-const PoematonContext = createContext<PoematonContextState | undefined>(undefined)
+const PoematonContext = createContext<PoematonContextState | undefined>(
+  undefined
+)
 
 export interface PoematonProviderProps {
   children: ReactNode
@@ -66,10 +74,12 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
     }, 10000)
   }, [stopAll])
 
-  const { timeLeft, formattedTime, isRunning, start: startTimer } = useCountdown(
-    TIMER_DURATION,
-    handleTimerExpire
-  )
+  const {
+    timeLeft,
+    formattedTime,
+    isRunning,
+    start: startTimer,
+  } = useCountdown(TIMER_DURATION, handleTimerExpire)
 
   // Play warning sound at 20 seconds
   React.useEffect(() => {
@@ -97,28 +107,37 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
     playMusic()
   }, [startTimer, playMusic])
 
-  const addVerseToPoem = useCallback((verse: Verse, index?: number) => {
-    if (!canAddVerseToPoem(poemVerses)) {
-      return
-    }
+  const addVerseToPoem = useCallback(
+    (verse: Verse, index?: number) => {
+      if (!canAddVerseToPoem(poemVerses)) {
+        return
+      }
 
-    const newPoemVerses = addVerse(poemVerses, verse, index)
-    setPoemVerses(newPoemVerses)
-    if (!canAddVerseToPoem(newPoemVerses)) {
-      setShowMaxVersesAlert(true)
-    }
-  }, [poemVerses])
+      const newPoemVerses = addVerse(poemVerses, verse, index)
+      setPoemVerses(newPoemVerses)
+      if (!canAddVerseToPoem(newPoemVerses)) {
+        setShowMaxVersesAlert(true)
+      }
+    },
+    [poemVerses]
+  )
 
-  const removeVerseFromPoem = useCallback((id: string) => {
-    const newPoemVerses = removeVerse(poemVerses, id)
-    setPoemVerses(newPoemVerses)
-    setShowMaxVersesAlert(false)
-  }, [poemVerses])
+  const removeVerseFromPoem = useCallback(
+    (id: string) => {
+      const newPoemVerses = removeVerse(poemVerses, id)
+      setPoemVerses(newPoemVerses)
+      setShowMaxVersesAlert(false)
+    },
+    [poemVerses]
+  )
 
-  const reorderPoemVerses = useCallback((oldIndex: number, newIndex: number) => {
-    const newPoemVerses = reorderVerses(poemVerses, oldIndex, newIndex)
-    setPoemVerses(newPoemVerses)
-  }, [poemVerses])
+  const reorderPoemVerses = useCallback(
+    (oldIndex: number, newIndex: number) => {
+      const newPoemVerses = reorderVerses(poemVerses, oldIndex, newIndex)
+      setPoemVerses(newPoemVerses)
+    },
+    [poemVerses]
+  )
 
   const handlePrint = useCallback(() => {
     window.print()
@@ -154,7 +173,11 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
     handlePrint,
   }
 
-  return <PoematonContext.Provider value={value}>{children}</PoematonContext.Provider>
+  return (
+    <PoematonContext.Provider value={value}>
+      {children}
+    </PoematonContext.Provider>
+  )
 }
 
 export function usePoematonContext(): PoematonContextState {

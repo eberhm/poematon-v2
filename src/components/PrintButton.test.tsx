@@ -8,7 +8,9 @@ describe('PrintButton', () => {
   it('renders button with correct text', () => {
     const mockOnClick = vi.fn()
     renderWithTheme(<PrintButton onClick={mockOnClick} />)
-    expect(screen.getByRole('button', { name: /imprime tu poema/i })).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /imprime tu poema/i })
+    ).toBeInTheDocument()
   })
 
   it('calls onClick when clicked', async () => {

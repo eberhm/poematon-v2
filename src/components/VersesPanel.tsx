@@ -13,7 +13,11 @@ export interface VersesPanelProps {
 /**
  * Left panel displaying all available verses with drag support
  */
-export function VersesPanel({ verses, showMaxVersesAlert = false, dragDisabled = false }: VersesPanelProps) {
+export function VersesPanel({
+  verses,
+  showMaxVersesAlert = false,
+  dragDisabled = false,
+}: VersesPanelProps) {
   const { setNodeRef } = useDroppable({
     id: 'verses-panel',
     data: {
@@ -69,7 +73,11 @@ export function VersesPanel({ verses, showMaxVersesAlert = false, dragDisabled =
       >
         <MaxVersesAlert show={showMaxVersesAlert} />
         {verses.map((verse) => (
-          <DraggableVerseCard key={verse.id} verse={verse} disabled={dragDisabled} />
+          <DraggableVerseCard
+            key={verse.id}
+            verse={verse}
+            disabled={dragDisabled}
+          />
         ))}
       </Box>
     </Box>

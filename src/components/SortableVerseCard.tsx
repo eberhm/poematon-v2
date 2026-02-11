@@ -11,7 +11,14 @@ export interface SortableVerseCardProps {
  * Sortable wrapper for VerseCard in TU POEMA panel
  */
 export function SortableVerseCard({ verse }: SortableVerseCardProps) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
     id: verse.id,
     data: {
       type: 'poem',
