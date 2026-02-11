@@ -1,6 +1,7 @@
 # Product Requirements Document: Poematon
 
 ## Document Information
+
 - **Product Name:** Poematon 2.0
 - **Version:** 2.0 (New Implementation)
 - **Target Stack:** Vite, Vitest, React
@@ -32,12 +33,14 @@ All assets, screenshots, and source code are publicly accessible for migration p
 ### Available Screenshots
 
 The repository includes complete visual reference screenshots in `/docs/screens/`:
+
 - **intro.png** - Welcome screen with instructions and "EMPEZAR" button
 - **main.png** - Main interface showing verse selection (left) and poem composition (right) panels
 - **print-dialog.png** - Browser print dialog with formatted poem output
 - **end.png** - Completion screen displayed after printing
 
 **Screenshot URLs:**
+
 - Intro: https://raw.githubusercontent.com/eberhm/poematon/main/docs/screens/intro.png
 - Main: https://raw.githubusercontent.com/eberhm/poematon/main/docs/screens/main.png
 - Print Dialog: https://raw.githubusercontent.com/eberhm/poematon/main/docs/screens/print-dialog.png
@@ -46,6 +49,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 ## Technical Stack Requirements
 
 ### Core Technologies
+
 - **Build Tool:** Vite (latest stable version)
 - **Testing:** Vitest for unit tests, @testing-library/react for component tests
 - **Framework:** React 18+
@@ -54,6 +58,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 - **Drag & Drop:** @dnd-kit/core, @dnd-kit/sortable
 
 ### Additional Dependencies
+
 - **Styling:** Emotion (via MUI)
 - **Data Processing:** csv-parse for data transformation scripts
 - **Formatting:** Prettier
@@ -62,6 +67,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 ## User Personas
 
 ### Primary User: Poetry Installation Participant
+
 - Visiting a physical art installation/exhibition
 - May have limited technical experience
 - Expects immediate, intuitive interaction
@@ -73,6 +79,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 ### 1. Initial Welcome Screen
 
 #### FR-1.1: Welcome Interface
+
 - **Priority:** P0 (Critical)
 - **Description:** Display welcome screen with logo, title, and instructions before session starts
 - **Components:**
@@ -84,6 +91,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Large "EMPEZAR" (Start) button
 
 #### FR-1.2: Instructions Display
+
 - **Priority:** P0
 - **Instructions Must Include:**
   1. Explanation of verse metrics (pentasílabos, heptasílabos, etc.)
@@ -94,6 +102,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   6. Print button instruction
 
 #### FR-1.3: Start Interaction
+
 - **Priority:** P0
 - **Behavior:**
   - Click "EMPEZAR" button to begin
@@ -105,6 +114,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 ### 2. Countdown Timer System
 
 #### FR-2.1: Timer Display
+
 - **Priority:** P0
 - **Specification:**
   - 3-minute countdown (180 seconds)
@@ -114,6 +124,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Updates every second
 
 #### FR-2.2: Timer Audio Cues
+
 - **Priority:** P0
 - **Audio Requirements:**
   - Background music plays during entire session (music.mp3, 40% volume)
@@ -121,6 +132,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - All audio files must be in public/sound/ directory
 
 #### FR-2.3: Timer Expiration
+
 - **Priority:** P0
 - **Behavior When Timer Reaches 0:00:**
   - Automatically trigger print function
@@ -131,6 +143,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 ### 3. Verse Selection Interface (Left Panel)
 
 #### FR-3.1: Verses Section Layout
+
 - **Priority:** P0
 - **Specifications:**
   - Title: "VERSOS" centered at top
@@ -142,6 +155,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Custom scrollbar styling (white thumb on dark background)
 
 #### FR-3.2: Verse Cards Display
+
 - **Priority:** P0
 - **Card Specifications:**
   - White background rounded rectangles
@@ -152,6 +166,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Draggable state with visual feedback
 
 #### FR-3.3: Verse List Behavior
+
 - **Priority:** P0
 - **Requirements:**
   - Verses randomized on initial load
@@ -161,6 +176,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - No visual indication of which verses are already in poem
 
 #### FR-3.4: Maximum Verses Alert
+
 - **Priority:** P1
 - **Specification:**
   - When user reaches 8 verses in poem, display error alert
@@ -174,6 +190,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 ### 4. Poem Composition Interface (Right Panel)
 
 #### FR-4.1: Poem Section Layout
+
 - **Priority:** P0
 - **Specifications:**
   - Title: "TU POEMA" centered at top
@@ -185,6 +202,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Drop zone for verses from left panel
 
 #### FR-4.2: Poem Verse Display
+
 - **Priority:** P0
 - **Specifications:**
   - Same visual style as verse cards in left panel
@@ -194,6 +212,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Empty state shows empty droppable area
 
 #### FR-4.3: Poem Ordering
+
 - **Priority:** P0
 - **Requirements:**
   - Verses can be reordered via drag and drop
@@ -204,6 +223,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 ### 5. Drag and Drop System
 
 #### FR-5.1: Drag Operations
+
 - **Priority:** P0
 - **Supported Operations:**
   - Drag from "VERSOS" to "TU POEMA"
@@ -212,6 +232,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Visual overlay of dragged verse during drag
 
 #### FR-5.2: Drag Constraints
+
 - **Priority:** P0
 - **Rules:**
   - Maximum 8 verses in "TU POEMA" section
@@ -220,6 +241,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Can always drag from "TU POEMA" back to "VERSOS"
 
 #### FR-5.3: Drag Interactions
+
 - **Priority:** P0
 - **Input Methods:**
   - Mouse/trackpad pointer events
@@ -227,6 +249,7 @@ The repository includes complete visual reference screenshots in `/docs/screens/
   - Collision detection using closest corners algorithm
 
 #### FR-5.4: Drag Feedback
+
 - **Priority:** P1
 - **Visual Indicators:**
   - Overlay card following cursor during drag
@@ -236,19 +259,22 @@ The repository includes complete visual reference screenshots in `/docs/screens/
 ### 6. Data Management
 
 #### FR-6.1: Verse Data Structure
+
 - **Priority:** P0
 - **Schema:**
+
 ```typescript
 type Verse = {
-  id: string;          // UUID v4 format
-  value: string;       // The verse text
-  autor: string;       // Author name
-  poema: string;       // Source poem title
-  poemario: string;    // Source poetry collection
+  id: string // UUID v4 format
+  value: string // The verse text
+  autor: string // Author name
+  poema: string // Source poem title
+  poemario: string // Source poetry collection
 }
 ```
 
 #### FR-6.2: Data Sources
+
 - **Priority:** P0
 - **Format:**
   - CSV source files in `src/data/` directory
@@ -257,6 +283,7 @@ type Verse = {
   - Converted to JSON via build script
 
 #### FR-6.3: Version System
+
 - **Priority:** P0
 - **Requirements:**
   - Support multiple verse collections/versions
@@ -266,6 +293,7 @@ type Verse = {
   - Each version maps to separate JSON data file
 
 #### FR-6.4: Data Loading Script
+
 - **Priority:** P1
 - **Specifications:**
   - Script: `npm run data:reload`
@@ -278,6 +306,7 @@ type Verse = {
 ### 7. Print Functionality
 
 #### FR-7.1: Print Button
+
 - **Priority:** P0
 - **Specifications:**
   - Button text: "Imprime tu poema"
@@ -289,6 +318,7 @@ type Verse = {
   - Hover state: white background
 
 #### FR-7.2: Print Layout
+
 - **Priority:** P0
 - **Requirements:**
   - Trigger browser print dialog
@@ -301,6 +331,7 @@ type Verse = {
     - Bullet list of attributions (author, poem, collection)
 
 #### FR-7.3: Print Content Format
+
 - **Priority:** P0
 - **Specifications:**
   - Font sizes: 1.5em for main header, 1.2em for verses
@@ -310,6 +341,7 @@ type Verse = {
   - Unstyled bullet lists
 
 #### FR-7.4: Completion Screen
+
 - **Priority:** P0
 - **Display After Print:**
   - Full-screen overlay with background image
@@ -321,11 +353,13 @@ type Verse = {
 ### 8. Remote Video Server Integration
 
 #### FR-8.1: Server Configuration
+
 - **Priority:** P2 (Optional Feature)
 - **URL Parameter:** `?videoServer=<url>`
 - **Description:** Optional integration with external display/video system
 
 #### FR-8.2: Data Transmission
+
 - **Priority:** P2
 - **Specification:**
   - Expose poem data to `window.poem` object
@@ -340,6 +374,7 @@ type Verse = {
 **Visual Reference:** Complete screenshots of all application screens are available in `/docs/screens/` folder (intro.png, main.png, print-dialog.png, end.png). See Appendix C for direct URLs to these screenshots for pixel-perfect reference during implementation.
 
 #### FR-9.1: Color Palette
+
 - **Priority:** P0
 - **Colors:**
   - Primary accent: #cfc140 (yellow/gold)
@@ -350,6 +385,7 @@ type Verse = {
   - Error: Red (Material-UI error color)
 
 #### FR-9.2: Typography
+
 - **Priority:** P0
 - **Font:**
   - Font family: Roboto (weights: 300, 400, 500, 700)
@@ -359,6 +395,7 @@ type Verse = {
   - Timer: 4em
 
 #### FR-9.3: Background
+
 - **Priority:** P1
 - **Specification:**
   - Background image: `background.portada.png`
@@ -366,6 +403,7 @@ type Verse = {
   - Covers entire viewport
 
 #### FR-9.4: Layout
+
 - **Priority:** P0
 - **Grid System:**
   - Material-UI Grid with 12-column system
@@ -377,6 +415,7 @@ type Verse = {
 ### 10. Accessibility Requirements
 
 #### FR-10.1: Keyboard Navigation
+
 - **Priority:** P1
 - **Requirements:**
   - Full keyboard support for drag and drop
@@ -385,6 +424,7 @@ type Verse = {
   - Enter/Space to activate buttons
 
 #### FR-10.2: Screen Reader Support
+
 - **Priority:** P2
 - **Requirements:**
   - Semantic HTML structure
@@ -395,6 +435,7 @@ type Verse = {
 ### 11. Performance Requirements
 
 #### FR-11.1: Load Time
+
 - **Priority:** P1
 - **Target:** Initial page load under 3 seconds on standard broadband
 - **Optimization:**
@@ -403,6 +444,7 @@ type Verse = {
   - Lazy loading of audio files
 
 #### FR-11.2: Interaction Performance
+
 - **Priority:** P0
 - **Requirements:**
   - Drag operations must feel instantaneous (<16ms frame time)
@@ -410,6 +452,7 @@ type Verse = {
   - No layout shifts during interactions
 
 #### FR-11.3: Bundle Size
+
 - **Priority:** P1
 - **Target:** Total bundle size under 500KB (gzipped)
 - **Strategy:** Tree-shaking, dynamic imports for audio
@@ -417,6 +460,7 @@ type Verse = {
 ### 12. Browser Requirements
 
 #### FR-12.1: Supported Browsers
+
 - **Priority:** P0
 - **Minimum Versions:**
   - Chrome/Edge: Last 2 versions
@@ -425,6 +469,7 @@ type Verse = {
   - No IE11 support required
 
 #### FR-12.2: Required Features
+
 - **Priority:** P0
 - **APIs:**
   - Fullscreen API
@@ -436,6 +481,7 @@ type Verse = {
 ## Testing Requirements
 
 ### TR-1: Unit Tests (Vitest)
+
 - **Priority:** P0
 - **Coverage:**
   - Utility functions (board.ts, verse.ts)
@@ -444,6 +490,7 @@ type Verse = {
   - Target: >80% code coverage
 
 ### TR-2: Component Tests
+
 - **Priority:** P0
 - **Coverage:**
   - VerseCard rendering
@@ -453,6 +500,7 @@ type Verse = {
   - Timer countdown logic
 
 ### TR-3: Integration Tests
+
 - **Priority:** P1
 - **Scenarios:**
   - Complete user flow: start → drag verses → print
@@ -461,6 +509,7 @@ type Verse = {
   - Timer expiration behavior
 
 ### TR-4: Visual Regression Tests
+
 - **Priority:** P2
 - **Coverage:**
   - Welcome screen
@@ -472,6 +521,7 @@ type Verse = {
 ## Build and Deployment Requirements
 
 ### BD-1: Development Environment
+
 - **Priority:** P0
 - **Commands:**
   - `npm install` - Install dependencies
@@ -485,6 +535,7 @@ type Verse = {
   - `npm run format:fix` - Fix code formatting
 
 ### BD-2: Production Build
+
 - **Priority:** P0
 - **Requirements:**
   - Base path: `/poematon/` for GitHub Pages
@@ -494,6 +545,7 @@ type Verse = {
   - TypeScript type checking before build
 
 ### BD-3: GitHub Actions Deployment
+
 - **Priority:** P0
 - **Workflow:**
   - Trigger on push to main branch
@@ -508,6 +560,7 @@ type Verse = {
   - Deploy to: `https://eberhm.github.io/poematon/`
 
 ### BD-4: Configuration Files
+
 - **Priority:** P0
 - **Required Files:**
   - `vite.config.ts` - Vite configuration with base path
@@ -521,6 +574,7 @@ type Verse = {
 **Note:** All source code, assets (images, audio, CSS), and data files are publicly available from the current repository. See **Appendix C: Asset URLs** for complete reference links to facilitate migration.
 
 ### Phase 1: Project Setup
+
 1. Initialize new Vite + React + TypeScript project
 2. Configure base path for GitHub Pages
 3. Set up Vitest testing environment
@@ -529,6 +583,7 @@ type Verse = {
 6. Download or reference assets from current repository (see Appendix C)
 
 ### Phase 2: Core Implementation
+
 1. Port type definitions (src/types/)
 2. Port utility functions (src/utils/)
 3. Implement data loading and version system
@@ -539,6 +594,7 @@ type Verse = {
    - PoematonSectionList (main component)
 
 ### Phase 3: UI and Interaction
+
 1. Implement drag and drop system
 2. Port CSS styling (convert to module or keep global)
 3. Implement timer system
@@ -546,12 +602,14 @@ type Verse = {
 5. Implement fullscreen mode
 
 ### Phase 4: Print and Completion
+
 1. Implement print functionality
 2. Create print-specific CSS
 3. Implement completion screen
 4. Add remote video server integration
 
 ### Phase 5: Testing and Polish
+
 1. Write unit tests for utilities
 2. Write component tests
 3. Test complete user flows
@@ -559,6 +617,7 @@ type Verse = {
 5. Cross-browser testing
 
 ### Phase 6: Deployment
+
 1. Configure GitHub Actions
 2. Test deployment process
 3. Verify production build
@@ -567,9 +626,11 @@ type Verse = {
 ## Data Migration
 
 ### Asset Access
+
 All assets from the current implementation are publicly accessible via the GitHub repository and GitHub Pages deployment. See **Appendix C: Asset URLs** for complete list of image, audio, CSS, and data file URLs that can be used during development and migration.
 
 ### CSV to JSON Conversion
+
 - **Files to Port:**
   - `src/data/data.csv` → `src/data/data.json`
   - `src/data/versos.canarias.csv` → `src/data/canarias.json`
@@ -580,24 +641,28 @@ All assets from the current implementation are publicly accessible via the GitHu
 ## Non-Functional Requirements
 
 ### NFR-1: Code Quality
+
 - TypeScript strict mode enabled
 - ESLint with React and TypeScript rules
 - Prettier for consistent formatting
 - No console errors or warnings in production
 
 ### NFR-2: Documentation
+
 - README with setup and development instructions
 - Inline comments for complex logic
 - Type definitions for all data structures
 - CLAUDE.md for AI assistant context
 
 ### NFR-3: Maintainability
+
 - Modular component structure
 - Separation of concerns (UI, logic, data)
 - Reusable utilities
 - Clear naming conventions
 
 ### NFR-4: Error Handling
+
 - Graceful fallback if audio fails to load
 - Console logging for debugging
 - User-friendly error messages
@@ -627,6 +692,7 @@ All assets from the current implementation are publicly accessible via the GitHu
 ## Appendix
 
 ### A. File Structure
+
 ```
 poematon/
 ├── .github/
@@ -672,6 +738,7 @@ poematon/
 ```
 
 ### B. Key Dependencies
+
 ```json
 {
   "dependencies": {
@@ -707,6 +774,7 @@ poematon/
 The current application is deployed at: `https://eberhm.github.io/poematon/`
 
 #### Images
+
 - **Background Image:** `https://eberhm.github.io/poematon/background.portada.png`
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/public/background.portada.png`
 - **Corona Logo:** `https://eberhm.github.io/poematon/corona.png`
@@ -719,7 +787,9 @@ The current application is deployed at: `https://eberhm.github.io/poematon/`
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/public/logo512.png`
 
 #### Screenshots (Visual Reference)
+
 The `/docs/screens/` folder contains complete screenshots of all application states for visual reference during implementation:
+
 - **Welcome/Intro Screen:** `https://raw.githubusercontent.com/eberhm/poematon/main/docs/screens/intro.png`
   - Shows initial screen with logo, instructions, and "EMPEZAR" button
 - **Main Interface:** `https://raw.githubusercontent.com/eberhm/poematon/main/docs/screens/main.png`
@@ -730,6 +800,7 @@ The `/docs/screens/` folder contains complete screenshots of all application sta
   - Shows final "Enhorabuena" message after printing
 
 #### Audio Files
+
 - **Background Music:** `https://eberhm.github.io/poematon/sound/music.mp3`
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/public/sound/music.mp3`
 - **20 Second Warning:** `https://eberhm.github.io/poematon/sound/20s.mp3`
@@ -738,10 +809,12 @@ The `/docs/screens/` folder contains complete screenshots of all application sta
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/public/sound/10s.mp3`
 
 #### CSS
+
 - **Main Stylesheet:** `https://eberhm.github.io/poematon/main.css`
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/public/main.css`
 
 #### Data Files
+
 - **Version 1 Data:**
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/src/data/data.json`
 - **Canarias Version Data:**
@@ -752,18 +825,21 @@ The `/docs/screens/` folder contains complete screenshots of all application sta
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/src/data/preload.json`
 
 #### Scripts
+
 - **Timer Script:** `https://eberhm.github.io/poematon/tiempo.js`
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/public/tiempo.js`
 - **Data Loading Script:**
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/scripts/loadData.js`
 
 #### Configuration
+
 - **Manifest:** `https://eberhm.github.io/poematon/manifest.json`
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/public/manifest.json`
 - **Robots.txt:** `https://eberhm.github.io/poematon/robots.txt`
   - Raw: `https://raw.githubusercontent.com/eberhm/poematon/main/public/robots.txt`
 
 #### Source Code Reference
+
 - **Full Repository:** `https://github.com/eberhm/poematon`
 - **Main Branch:** `https://github.com/eberhm/poematon/tree/main`
 - **Components:** `https://github.com/eberhm/poematon/tree/main/src/components`
@@ -773,6 +849,7 @@ The `/docs/screens/` folder contains complete screenshots of all application sta
 **Note:** Use raw GitHub URLs when fetching files programmatically. Use GitHub Pages URLs for production assets.
 
 ### D. Glossary
+
 - **Ready-made poem:** Poetry created by selecting and arranging existing verses from other works
 - **Verse:** A single line or phrase of poetry
 - **CEROPOÉTICAS:** "Zero Poetics" - the expanded poetry exhibition context
