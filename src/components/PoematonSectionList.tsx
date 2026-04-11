@@ -31,6 +31,7 @@ export function PoematonSectionList() {
   const {
     allVerses,
     poemVerses,
+    authorName,
     timeLeft,
     showMaxVersesAlert,
     showCompletion,
@@ -143,7 +144,7 @@ export function PoematonSectionList() {
       <CompletionScreen open={showCompletion} />
 
       {/* Print Content (hidden on screen, visible in print) */}
-      <PrintContent poemVerses={poemVerses} />
+      <PrintContent poemVerses={poemVerses} authorName={authorName} />
 
       <Container maxWidth="xl" sx={{ marginTop: '50px' }}>
         {/* Timer */}

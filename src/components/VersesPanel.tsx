@@ -42,7 +42,9 @@ export function VersesPanel({
           color: '#fff',
           textAlign: 'center',
           marginBottom: 2,
-          fontWeight: 700,
+          fontFamily: "'Press Start 2P', monospace",
+          fontSize: '14px',
+          textShadow: '0 0 10px rgba(255,255,255,0.4)',
         }}
       >
         VERSOS

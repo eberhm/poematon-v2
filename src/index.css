@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: #000;
+  background: #020008;
   font-family: 'Roboto', sans-serif;
   overflow: hidden;
 }
@@ -29,6 +29,20 @@ body {
   background: #cfc140;
 }
 
+/* Hide cursor at very top in fullscreen to suppress browser exit hint */
+:fullscreen body::before,
+:-webkit-full-screen body::before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  z-index: 99999;
+  cursor: none;
+}
+
 /* Print styles */
 @media print {
   body {
@@ -50,6 +64,13 @@ body {
   .print-title {
     font-size: 24px;
     font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .print-author {
+    font-size: 16px;
+    font-style: italic;
+    color: #555;
     margin-bottom: 20px;
   }
 

@@ -54,6 +54,29 @@ describe('WelcomeScreen', () => {
     expect(mockOnStart).toHaveBeenCalledTimes(1)
   })
 
+  it('calls onStart with the entered name when button is clicked', async () => {
+    const user = userEvent.setup()
+    const mockOnStart = vi.fn()
+    renderWithTheme(<WelcomeScreen open={true} onStart={mockOnStart} />)
+
+    const nameInput = screen.getByPlaceholderText(/Escribe tu nombre/i)
+    await user.type(nameInput, 'Ana Pérez')
+    await user.click(screen.getByRole('button', { name: /empezar/i }))
+
+    expect(mockOnStart).toHaveBeenCalledWith('Ana Pérez')
+  })
+
+  it('calls onStart when Enter is pressed in the name field', async () => {
+    const user = userEvent.setup()
+    const mockOnStart = vi.fn()
+    renderWithTheme(<WelcomeScreen open={true} onStart={mockOnStart} />)
+
+    const nameInput = screen.getByPlaceholderText(/Escribe tu nombre/i)
+    await user.type(nameInput, 'Test{Enter}')
+
+    expect(mockOnStart).toHaveBeenCalledTimes(1)
+  })
+
   it('does not render when open is false', () => {
     const mockOnStart = vi.fn()
     renderWithTheme(<WelcomeScreen open={false} onStart={mockOnStart} />)

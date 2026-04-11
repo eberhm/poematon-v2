@@ -3,13 +3,14 @@ import type { Verse } from '../types'
 
 export interface PrintContentProps {
   poemVerses: Verse[]
+  authorName?: string
 }
 
 /**
  * Print-only content that displays the poem and attributions
  * Hidden on screen, visible only when printing
  */
-export function PrintContent({ poemVerses }: PrintContentProps) {
+export function PrintContent({ poemVerses, authorName }: PrintContentProps) {
   if (poemVerses.length === 0) return null
 
   return (
@@ -24,6 +25,9 @@ export function PrintContent({ poemVerses }: PrintContentProps) {
     >
       {/* Poem Title */}
       <div className="print-title">POEMATÓN. Tu Poema ready-made:</div>
+
+      {/* Author */}
+      {authorName && <div className="print-author">Autor/a: {authorName}</div>}
 
       {/* Verses */}
       <div className="print-verses">

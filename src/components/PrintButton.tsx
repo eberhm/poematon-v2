@@ -15,13 +15,15 @@ export function PrintButton({ onClick }: PrintButtonProps) {
       sx={{
         backgroundColor: '#cfc140',
         color: '#000',
-        width: '190px',
-        fontWeight: 700,
-        fontSize: '1rem',
+        fontFamily: "'Press Start 2P', monospace",
+        fontSize: '11px',
         textTransform: 'uppercase',
         borderRadius: '4px',
+        padding: '14px 24px',
+        boxShadow: '0 0 12px rgba(207,193,64,0.4)',
         '&:hover': {
           backgroundColor: '#b8ad39',
+          boxShadow: '0 0 20px rgba(207,193,64,0.6)',
         },
       }}
     >

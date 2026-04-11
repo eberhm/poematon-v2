@@ -10,6 +10,7 @@ import {
 } from '../utils/board'
 import { useCountdown } from '../utils/timer'
 import { useAudio } from '../utils/useAudio'
+import { savePoem } from '../utils/savePoem'
 import {
   PoematonContext,
   type PoematonContextState,
@@ -19,12 +20,16 @@ export type { PoematonContextState }
 
 export interface PoematonProviderProps {
   children: ReactNode
+  authorName: string
 }
 
 const TIMER_DURATION = 180 // 3 minutes in seconds
 const WARNING_TIME = 20 // Play warning at 20 seconds
 
-export function PoematonProvider({ children }: PoematonProviderProps) {
+export function PoematonProvider({
+  children,
+  authorName,
+}: PoematonProviderProps) {
   const [allVerses, setAllVerses] = useState<Verse[]>([])
   const [poemVerses, setPoemVerses] = useState<Verse[]>([])
   const [showMaxVersesAlert, setShowMaxVersesAlert] = useState(false)
@@ -36,6 +41,7 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
 
   const handleTimerExpire = useCallback(() => {
     stopAll()
+    savePoem(poemVerses, authorName)
     window.print()
     setShowCompletion(true)
     setIsSessionActive(false)
@@ -44,7 +50,7 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
     setTimeout(() => {
       window.location.reload()
     }, 10000)
-  }, [stopAll])
+  }, [stopAll, poemVerses, authorName])
 
   const {
     timeLeft,
@@ -112,7 +118,7 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
   )
 
   const handlePrint = useCallback(() => {
-    window.print()
+    savePoem(poemVerses, authorName)
 
     // Optional: Post to video server if configured
     const params = new URLSearchParams(window.location.search)
@@ -121,16 +127,26 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
       fetch(videoServer, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ verses: poemVerses }),
+        body: JSON.stringify({ verses: poemVerses, author: authorName }),
       }).catch((error) => {
         console.warn('Failed to post to video server:', error)
       })
     }
-  }, [poemVerses])
+
+    stopAll()
+    window.print()
+    setShowCompletion(true)
+    setIsSessionActive(false)
+
+    setTimeout(() => {
+      window.location.reload()
+    }, 10000)
+  }, [poemVerses, authorName, stopAll])
 
   const value: PoematonContextState = {
     allVerses,
     poemVerses,
+    authorName,
     timeLeft,
     isTimerRunning: isRunning,
     formattedTime,

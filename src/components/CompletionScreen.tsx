@@ -1,13 +1,13 @@
 import { Modal, Box, Typography } from '@mui/material'
-import backgroundImage from '/background.portada.png'
+import { RetroBackground } from './RetroBackground'
 
 export interface CompletionScreenProps {
   open: boolean
 }
 
 /**
- * Completion screen shown after timer expires
- * Shows "Enhorabuena" message and auto-reloads after 10 seconds
+ * Completion screen shown after timer expires or manual print.
+ * Shows "Enhorabuena" message and auto-reloads after 10 seconds.
  */
 export function CompletionScreen({ open }: CompletionScreenProps) {
   return (
@@ -21,57 +21,62 @@ export function CompletionScreen({ open }: CompletionScreenProps) {
         justifyContent: 'center',
       }}
     >
-      <Box
-        sx={{
-          width: '100vw',
-          height: '100vh',
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          outline: 'none',
-        }}
-      >
-        <Typography
-          id="completion-modal"
-          variant="h2"
-          sx={{
-            color: '#fff',
-            fontWeight: 700,
-            textAlign: 'center',
-            textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-            marginBottom: 4,
-          }}
-        >
-          ¡Enhorabuena!
-        </Typography>
+      <Box sx={{ width: '100vw', height: '100vh' }}>
+        <RetroBackground>
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              outline: 'none',
+            }}
+          >
+            <Typography
+              id="completion-modal"
+              variant="h2"
+              sx={{
+                color: '#cfc140',
+                fontFamily: "'Press Start 2P', monospace",
+                fontSize: '48px',
+                lineHeight: 1.5,
+                textAlign: 'center',
+                textShadow:
+                  '0 0 20px rgba(207,193,64,0.7), 0 0 40px rgba(207,193,64,0.4)',
+                marginBottom: 5,
+              }}
+            >
+              ¡Enhorabuena!
+            </Typography>
 
-        <Typography
-          id="completion-message"
-          variant="h5"
-          sx={{
-            color: '#fff',
-            textAlign: 'center',
-            textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-          }}
-        >
-          Has completado tu poema ready-made
-        </Typography>
+            <Typography
+              id="completion-message"
+              variant="h5"
+              sx={{
+                color: '#fff',
+                textAlign: 'center',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+              }}
+            >
+              Has completado tu poema ready-made
+            </Typography>
 
-        <Typography
-          sx={{
-            color: '#cfc140',
-            textAlign: 'center',
-            marginTop: 4,
-            fontSize: '1.2rem',
-          }}
-        >
-          La página se recargará automáticamente en 10 segundos...
-        </Typography>
+            <Typography
+              sx={{
+                color: '#cfc140',
+                textAlign: 'center',
+                marginTop: 4,
+                fontSize: '1rem',
+                fontFamily: "'Press Start 2P', monospace",
+                lineHeight: 1.8,
+              }}
+            >
+              Recargando en 10 segundos...
+            </Typography>
+          </Box>
+        </RetroBackground>
       </Box>
     </Modal>
   )
