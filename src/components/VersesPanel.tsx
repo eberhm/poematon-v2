@@ -48,10 +48,12 @@ export function VersesPanel({
         VERSOS
       </Typography>
 
+      <MaxVersesAlert show={showMaxVersesAlert} />
+
       <Box
         ref={setNodeRef}
         sx={{
-          height: '65vh',
+          flex: 1,
           overflowX: 'hidden',
           overflowY: 'auto',
           paddingRight: 1,
@@ -71,7 +73,6 @@ export function VersesPanel({
           },
         }}
       >
-        <MaxVersesAlert show={showMaxVersesAlert} />
         {verses.map((verse) => (
           <DraggableVerseCard
             key={verse.id}
