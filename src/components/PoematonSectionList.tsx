@@ -13,7 +13,7 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useState } from 'react'
-import { usePoematonContext } from '../context/PoematonContext'
+import { usePoematonContext } from '../context/usePoematonContext'
 import { Timer } from './Timer'
 import { PrintButton } from './PrintButton'
 import { DraggableVerseCard } from './DraggableVerseCard'

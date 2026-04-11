@@ -23,6 +23,9 @@
     "*.{ts,tsx,js,mjs}": [
       "prettier --write",
       "eslint --fix"
+    ],
+    "*.{md,json,yml,yaml,css,html}": [
+      "prettier --write"
     ]
   },
   "dependencies": {

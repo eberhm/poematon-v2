@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  ReactNode,
-} from 'react'
+import React, { useState, useCallback, ReactNode } from 'react'
 import type { Verse } from '../types'
 import { loadVerses as loadVersesData, getVersionFromURL } from '../data'
 import { shuffleVerses } from '../utils/verse'
@@ -16,34 +10,12 @@ import {
 } from '../utils/board'
 import { useCountdown } from '../utils/timer'
 import { useAudio } from '../utils/useAudio'
+import {
+  PoematonContext,
+  type PoematonContextState,
+} from './PoematonContextDef'
 
-export interface PoematonContextState {
-  // Data
-  allVerses: Verse[]
-  poemVerses: Verse[]
-
-  // Timer
-  timeLeft: number
-  isTimerRunning: boolean
-  formattedTime: string
-
-  // UI state
-  showMaxVersesAlert: boolean
-  isSessionActive: boolean
-  showCompletion: boolean
-
-  // Actions
-  loadVerses: (version?: string) => Promise<void>
-  startSession: () => void
-  addVerseToPoem: (verse: Verse, index?: number) => void
-  removeVerseFromPoem: (id: string) => void
-  reorderPoemVerses: (oldIndex: number, newIndex: number) => void
-  handlePrint: () => void
-}
-
-const PoematonContext = createContext<PoematonContextState | undefined>(
-  undefined
-)
+export type { PoematonContextState }
 
 export interface PoematonProviderProps {
   children: ReactNode
@@ -178,12 +150,4 @@ export function PoematonProvider({ children }: PoematonProviderProps) {
       {children}
     </PoematonContext.Provider>
   )
-}
-
-export function usePoematonContext(): PoematonContextState {
-  const context = useContext(PoematonContext)
-  if (!context) {
-    throw new Error('usePoematonContext must be used within PoematonProvider')
-  }
-  return context
 }
