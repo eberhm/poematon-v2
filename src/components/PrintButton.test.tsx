@@ -33,11 +33,11 @@ describe('PrintButton', () => {
     expect(button).toHaveStyle({ backgroundColor: '#cfc140' })
   })
 
-  it('has correct width', () => {
+  it('uses pixel font', () => {
     const mockOnClick = vi.fn()
     renderWithTheme(<PrintButton onClick={mockOnClick} />)
     const button = screen.getByRole('button', { name: /imprime tu poema/i })
 
-    expect(button).toHaveStyle({ width: '190px' })
+    expect(button).toHaveStyle({ fontFamily: "'Press Start 2P', monospace" })
   })
 })
