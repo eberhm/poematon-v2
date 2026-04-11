@@ -6,13 +6,8 @@ import { theme } from './theme'
 import { WelcomeScreen } from './components/WelcomeScreen'
 import { PoematonProvider } from './context/PoematonContext'
 import { PoematonSectionList } from './components/PoematonSectionList'
+import { RetroBackground } from './components/RetroBackground'
 import { enterFullscreen } from './utils/fullscreen'
-
-const retroBackground = `
-  linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
-  repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(207,193,64,0.15) 39px, rgba(207,193,64,0.15) 40px),
-  repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(207,193,64,0.15) 39px, rgba(207,193,64,0.15) 40px)
-`
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true)
@@ -44,24 +39,18 @@ function App() {
           }}
         />
       )}
-      <Box
-        sx={{
-          width: '100vw',
-          height: '100vh',
-          background: retroBackground,
-          backgroundColor: '#0a0a0a',
-          overflow: 'auto',
-        }}
-      >
-        {/* Welcome Screen */}
-        <WelcomeScreen open={showWelcome} onStart={handleStart} />
+      <Box sx={{ width: '100vw', height: '100vh' }}>
+        <RetroBackground>
+          {/* Welcome Screen */}
+          <WelcomeScreen open={showWelcome} onStart={handleStart} />
 
-        {/* Main Application */}
-        {!showWelcome && (
-          <PoematonProvider authorName={authorName}>
-            <PoematonSectionList />
-          </PoematonProvider>
-        )}
+          {/* Main Application */}
+          {!showWelcome && (
+            <PoematonProvider authorName={authorName}>
+              <PoematonSectionList />
+            </PoematonProvider>
+          )}
+        </RetroBackground>
       </Box>
     </ThemeProvider>
   )

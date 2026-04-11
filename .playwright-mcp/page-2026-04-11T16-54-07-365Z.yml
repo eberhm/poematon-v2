@@ -1,0 +1,5 @@
+- generic [active] [ref=e1]:
+    - text: The server is configured with a public base URL of /poematon-v2/ - did you mean to visit
+    - link /poematon-v2/poematon/ [ref=e2] [cursor=pointer]:
+        - /url: /poematon-v2/poematon/
+    - text: instead?

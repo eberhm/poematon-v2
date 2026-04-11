@@ -1,0 +1,16 @@
+- generic "Poematón 2.0" [ref=e4]:
+    - generic [active] [ref=e6]:
+        - img "Corona logo" [ref=e7]
+        - heading "Poematón 2.0" [level=1] [ref=e8]
+        - paragraph [ref=e9]: Haz tu poema ready-made
+        - generic [ref=e10]:
+            - paragraph [ref=e11]: Instrucciones
+            - list [ref=e12]:
+                - listitem [ref=e13]: Encontrarás un listado de versos mayoritariamente con métrica impar (pentasílabos, heptasílabos, eneasílabos, endecasílabos).
+                - listitem [ref=e14]: Elige un verso y arrástralo hacia el cuadro del lado derecho.
+                - listitem [ref=e15]: Repite versos si quieres, dará musicalidad a tu poema ready-made.
+                - listitem [ref=e16]: 'No es necesario que busques rimas entre los versos; hoy en día predomina el verso blanco: versos sin rima, pero con ritmo (medida y acentos).'
+                - listitem [ref=e17]: Dispones de unos minutos para hacer tus elecciones y una extensión máxima de 8 versos.
+                - listitem [ref=e18]: Presiona el botón de imprimir y recoge el poema que has creado al salir del POEMATÓN.
+        - paragraph [ref=e19]: ¿Lo tienes claro? Pues presiona el botón inferior para EMPEZAR
+        - button "EMPEZAR" [ref=e20] [cursor=pointer]: EMPEZAR
