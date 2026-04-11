@@ -5,6 +5,7 @@ export interface PoematonContextState {
   // Data
   allVerses: Verse[]
   poemVerses: Verse[]
+  authorName: string
 
   // Timer
   timeLeft: number

@@ -1,13 +1,25 @@
-import { Box, Button, Typography, Modal } from '@mui/material'
+import { useState } from 'react'
+import { Box, Button, Typography, Modal, TextField } from '@mui/material'
 import coronaLogo from '/corona.png'
-import backgroundImage from '/background.portada.png'
 
 interface WelcomeScreenProps {
   open: boolean
-  onStart: () => void
+  onStart: (authorName: string) => void
 }
 
+const retroBackground = `
+  linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+  repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(207,193,64,0.15) 39px, rgba(207,193,64,0.15) 40px),
+  repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(207,193,64,0.15) 39px, rgba(207,193,64,0.15) 40px)
+`
+
 export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
+  const [name, setName] = useState('')
+
+  const handleStart = () => {
+    onStart(name.trim())
+  }
+
   return (
     <Modal
       open={open}
@@ -23,7 +35,8 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
         sx={{
           width: '100%',
           height: '100%',
-          background: `url(${backgroundImage})`,
+          background: retroBackground,
+          backgroundColor: '#0a0a0a',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
@@ -50,11 +63,13 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
           id="welcome-title"
           variant="h1"
           sx={{
-            color: '#fff',
+            color: '#cfc140',
             fontSize: '80px',
             fontWeight: 700,
             marginBottom: 1,
             textAlign: 'center',
+            textShadow:
+              '0 0 20px rgba(207,193,64,0.7), 0 0 40px rgba(207,193,64,0.4)',
           }}
         >
           Poematón 2.0
@@ -77,7 +92,8 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
         <Box
           id="welcome-instructions"
           sx={{
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            border: '1px solid rgba(207,193,64,0.3)',
             padding: 4,
             borderRadius: '20px',
             maxWidth: '700px',
@@ -152,6 +168,42 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
           </Typography>
         </Box>
 
+        {/* Name Input */}
+        <Box sx={{ marginBottom: 3, width: '100%', maxWidth: '400px' }}>
+          <Typography
+            sx={{
+              color: '#fff',
+              fontSize: '16px',
+              marginBottom: 1,
+              textAlign: 'center',
+            }}
+          >
+            Tu nombre (opcional):
+          </Typography>
+          <TextField
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Escribe tu nombre aquí"
+            variant="outlined"
+            fullWidth
+            inputProps={{ maxLength: 50 }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleStart()
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                color: '#fff',
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                borderRadius: '10px',
+                '& fieldset': { borderColor: 'rgba(207,193,64,0.5)' },
+                '&:hover fieldset': { borderColor: '#cfc140' },
+                '&.Mui-focused fieldset': { borderColor: '#cfc140' },
+              },
+              '& input::placeholder': { color: 'rgba(255,255,255,0.4)' },
+            }}
+          />
+        </Box>
+
         {/* Call to Action Text */}
         <Typography
           sx={{
@@ -170,7 +222,7 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
         <Button
           variant="contained"
           size="large"
-          onClick={onStart}
+          onClick={handleStart}
           sx={{
             backgroundColor: '#cfc140',
             color: '#000',
@@ -178,8 +230,10 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
             fontWeight: 700,
             padding: '15px 60px',
             borderRadius: '10px',
+            boxShadow: '0 0 20px rgba(207,193,64,0.5)',
             '&:hover': {
               backgroundColor: '#fff',
+              boxShadow: '0 0 30px rgba(255,255,255,0.5)',
             },
             transition: 'background-color 0.3s ease',
           }}
