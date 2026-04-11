@@ -18,10 +18,11 @@ export function Timer({ timeLeft }: TimerProps) {
     >
       <Typography
         sx={{
-          fontSize: '4em',
-          fontWeight: 700,
+          fontSize: '3.5em',
           color: '#fff',
-          fontFamily: 'Roboto, sans-serif',
+          fontFamily: "'Press Start 2P', monospace",
+          textShadow: '0 0 15px rgba(255,255,255,0.5)',
+          letterSpacing: '0.05em',
         }}
       >
         {formatTime(timeLeft)}

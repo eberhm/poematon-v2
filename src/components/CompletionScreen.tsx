@@ -39,10 +39,13 @@ export function CompletionScreen({ open }: CompletionScreenProps) {
               variant="h2"
               sx={{
                 color: '#cfc140',
-                fontWeight: 700,
+                fontFamily: "'Press Start 2P', monospace",
+                fontSize: '48px',
+                lineHeight: 1.5,
                 textAlign: 'center',
-                textShadow: '0 0 20px rgba(207,193,64,0.7)',
-                marginBottom: 4,
+                textShadow:
+                  '0 0 20px rgba(207,193,64,0.7), 0 0 40px rgba(207,193,64,0.4)',
+                marginBottom: 5,
               }}
             >
               ¡Enhorabuena!
@@ -65,10 +68,12 @@ export function CompletionScreen({ open }: CompletionScreenProps) {
                 color: '#cfc140',
                 textAlign: 'center',
                 marginTop: 4,
-                fontSize: '1.2rem',
+                fontSize: '1rem',
+                fontFamily: "'Press Start 2P', monospace",
+                lineHeight: 1.8,
               }}
             >
-              La página se recargará automáticamente en 10 segundos...
+              Recargando en 10 segundos...
             </Typography>
           </Box>
         </RetroBackground>

@@ -36,7 +36,8 @@ export function PoemPanel({ poemVerses, insertPreviewIndex }: PoemPanelProps) {
           color: '#000',
           textAlign: 'center',
           marginBottom: 2,
-          fontWeight: 700,
+          fontFamily: "'Press Start 2P', monospace",
+          fontSize: '14px',
         }}
       >
         TU POEMA

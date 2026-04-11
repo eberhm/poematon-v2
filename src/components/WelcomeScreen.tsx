@@ -54,12 +54,14 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
               variant="h1"
               sx={{
                 color: '#cfc140',
-                fontSize: '80px',
-                fontWeight: 700,
-                marginBottom: 1,
+                fontSize: '56px',
+                fontWeight: 400,
+                fontFamily: "'Press Start 2P', monospace",
+                marginBottom: 2,
                 textAlign: 'center',
                 textShadow:
                   '0 0 20px rgba(207,193,64,0.7), 0 0 40px rgba(207,193,64,0.4)',
+                lineHeight: 1.4,
               }}
             >
               Poematón 2.0
@@ -93,10 +95,11 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
               <Typography
                 sx={{
                   color: '#cfc140',
-                  fontSize: '20px',
-                  fontWeight: 700,
+                  fontSize: '14px',
+                  fontFamily: "'Press Start 2P', monospace",
                   textAlign: 'center',
                   marginBottom: 2,
+                  lineHeight: 1.6,
                 }}
               >
                 Instrucciones
@@ -225,9 +228,9 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
               sx={{
                 backgroundColor: '#cfc140',
                 color: '#000',
-                fontSize: '24px',
-                fontWeight: 700,
-                padding: '15px 60px',
+                fontSize: '16px',
+                fontFamily: "'Press Start 2P', monospace",
+                padding: '18px 60px',
                 borderRadius: '10px',
                 boxShadow: '0 0 20px rgba(207,193,64,0.5)',
                 '&:hover': {

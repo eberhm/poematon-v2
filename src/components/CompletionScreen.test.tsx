@@ -23,11 +23,7 @@ describe('CompletionScreen', () => {
 
   it('displays auto-reload message', () => {
     renderWithTheme(<CompletionScreen open={true} />)
-    expect(
-      screen.getByText(
-        'La página se recargará automáticamente en 10 segundos...'
-      )
-    ).toBeInTheDocument()
+    expect(screen.getByText('Recargando en 10 segundos...')).toBeInTheDocument()
   })
 
   it('has correct ARIA labels', () => {
