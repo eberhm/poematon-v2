@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Box, Button, Typography, Modal, TextField } from '@mui/material'
 import coronaLogo from '/corona.png'
 import { RetroBackground } from './RetroBackground'
@@ -10,6 +11,7 @@ interface WelcomeScreenProps {
 
 export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
   const [name, setName] = useState('')
+  const navigate = useNavigate()
 
   const handleStart = () => {
     onStart(name.trim())
@@ -241,6 +243,21 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
               }}
             >
               EMPEZAR
+            </Button>
+
+            {/* Gallery Link */}
+            <Button
+              variant="text"
+              size="small"
+              onClick={() => navigate('/gallery')}
+              sx={{
+                color: 'rgba(255,255,255,0.4)',
+                fontSize: '12px',
+                mt: 2,
+                '&:hover': { color: '#cfc140' },
+              }}
+            >
+              Ver poemas guardados
             </Button>
           </Box>
         </RetroBackground>

@@ -2,11 +2,16 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ThemeProvider } from '@mui/material/styles'
+import { MemoryRouter } from 'react-router-dom'
 import { WelcomeScreen } from './WelcomeScreen'
 import { theme } from '../theme'
 
 const renderWithTheme = (component: React.ReactElement) => {
-  return render(<ThemeProvider theme={theme}>{component}</ThemeProvider>)
+  return render(
+    <MemoryRouter>
+      <ThemeProvider theme={theme}>{component}</ThemeProvider>
+    </MemoryRouter>
+  )
 }
 
 describe('WelcomeScreen', () => {

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Box } from '@mui/material'
@@ -7,9 +8,11 @@ import { WelcomeScreen } from './components/WelcomeScreen'
 import { PoematonProvider } from './context/PoematonContext'
 import { PoematonSectionList } from './components/PoematonSectionList'
 import { RetroBackground } from './components/RetroBackground'
+import { Gallery } from './components/Gallery'
+import { PoemView } from './components/PoemView'
 import { enterFullscreen } from './utils/fullscreen'
 
-function App() {
+function MainApp() {
   const [showWelcome, setShowWelcome] = useState(true)
   const [authorName, setAuthorName] = useState('')
 
@@ -25,7 +28,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* Top overlay to suppress fullscreen exit hint on hover */}
       {!showWelcome && (
         <Box
           sx={{
@@ -41,10 +43,8 @@ function App() {
       )}
       <Box sx={{ width: '100vw', height: '100vh' }}>
         <RetroBackground>
-          {/* Welcome Screen */}
           <WelcomeScreen open={showWelcome} onStart={handleStart} />
 
-          {/* Main Application */}
           {!showWelcome && (
             <PoematonProvider authorName={authorName}>
               <PoematonSectionList />
@@ -52,6 +52,19 @@ function App() {
           )}
         </RetroBackground>
       </Box>
+    </ThemeProvider>
+  )
+}
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Routes>
+        <Route path="/" element={<MainApp />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery/:id" element={<PoemView />} />
+      </Routes>
     </ThemeProvider>
   )
 }
