@@ -1,15 +1,40 @@
+import { useEffect, useState } from 'react'
 import { Modal, Box, Typography } from '@mui/material'
 import { RetroBackground } from './RetroBackground'
 
 export interface CompletionScreenProps {
   open: boolean
+  reloadSeconds?: number
 }
 
 /**
  * Completion screen shown after timer expires or manual print.
- * Shows "Enhorabuena" message and auto-reloads after 10 seconds.
+ * Shows "Enhorabuena" message with a live countdown before auto-reload.
  */
-export function CompletionScreen({ open }: CompletionScreenProps) {
+export function CompletionScreen({
+  open,
+  reloadSeconds = 10,
+}: CompletionScreenProps) {
+  const [secondsLeft, setSecondsLeft] = useState(reloadSeconds)
+
+  useEffect(() => {
+    if (!open) {
+      setSecondsLeft(reloadSeconds)
+      return
+    }
+    setSecondsLeft(reloadSeconds)
+    const interval = setInterval(() => {
+      setSecondsLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [open, reloadSeconds])
+
   return (
     <Modal
       open={open}
@@ -73,7 +98,8 @@ export function CompletionScreen({ open }: CompletionScreenProps) {
                 lineHeight: 1.8,
               }}
             >
-              Recargando en 10 segundos...
+              Recargando en {secondsLeft} segundo
+              {secondsLeft !== 1 ? 's' : ''}...
             </Typography>
           </Box>
         </RetroBackground>

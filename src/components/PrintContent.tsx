@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { createPortal } from 'react-dom'
 import type { Verse } from '../types'
 
 export interface PrintContentProps {
@@ -7,22 +7,15 @@ export interface PrintContentProps {
 }
 
 /**
- * Print-only content that displays the poem and attributions
- * Hidden on screen, visible only when printing
+ * Print-only content rendered via portal directly under <body>.
+ * This keeps it outside #root so that hiding #root in @media print
+ * doesn't affect print output.
  */
 export function PrintContent({ poemVerses, authorName }: PrintContentProps) {
   if (poemVerses.length === 0) return null
 
-  return (
-    <Box
-      className="print-content"
-      sx={{
-        display: 'none', // Hidden on screen
-        '@media print': {
-          display: 'block',
-        },
-      }}
-    >
+  return createPortal(
+    <div className="print-content" style={{ display: 'none' }}>
       {/* Poem Title */}
       <div className="print-title">POEMATÓN. Tu Poema ready-made:</div>
 
@@ -53,6 +46,7 @@ export function PrintContent({ poemVerses, authorName }: PrintContentProps) {
           </li>
         ))}
       </ul>
-    </Box>
+    </div>,
+    document.body
   )
 }

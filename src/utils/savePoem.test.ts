@@ -1,6 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { savePoem } from './savePoem'
 import type { Verse } from '../types'
+
+vi.mock('./poemStorage', () => ({
+  savePoem: vi.fn(),
+}))
 
 const mockVerses: Verse[] = [
   {
@@ -20,77 +23,40 @@ const mockVerses: Verse[] = [
 ]
 
 describe('savePoem', () => {
-  let clickSpy: ReturnType<typeof vi.fn>
-  let createdElement: HTMLAnchorElement
-  let createObjectURL: ReturnType<typeof vi.fn>
-  let revokeObjectURL: ReturnType<typeof vi.fn>
+  let savePoemWrapper: typeof import('./savePoem').savePoem
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let mockSaveToDB: any
 
-  beforeEach(() => {
-    clickSpy = vi.fn()
-
-    // jsdom doesn't implement URL.createObjectURL, so assign directly
-    createObjectURL = vi.fn().mockReturnValue('blob:test-url')
-    revokeObjectURL = vi.fn()
-    global.URL.createObjectURL = createObjectURL as typeof URL.createObjectURL
-    global.URL.revokeObjectURL = revokeObjectURL as typeof URL.revokeObjectURL
-
-    vi.spyOn(document.body, 'appendChild').mockImplementation(
-      (node: Node) => node
-    )
-    vi.spyOn(document.body, 'removeChild').mockImplementation(
-      (node: Node) => node
-    )
-
-    vi.spyOn(document, 'createElement').mockImplementation(
-      (tagName: string) => {
-        if (tagName === 'a') {
-          createdElement = {
-            href: '',
-            download: '',
-            click: clickSpy,
-          } as unknown as HTMLAnchorElement
-          return createdElement
-        }
-        return document.createElement(tagName)
-      }
-    )
+  beforeEach(async () => {
+    const storage = await import('./poemStorage')
+    mockSaveToDB = vi.mocked(storage.savePoem)
+    mockSaveToDB.mockResolvedValue(undefined)
+    const wrapper = await import('./savePoem')
+    savePoemWrapper = wrapper.savePoem
   })
 
   afterEach(() => {
-    vi.restoreAllMocks()
+    vi.clearAllMocks()
   })
 
-  it('does nothing when poemVerses is empty', () => {
-    savePoem([], 'Test Author')
-    expect(clickSpy).not.toHaveBeenCalled()
+  it('calls poemStorage.savePoem with verses and author', () => {
+    savePoemWrapper(mockVerses, 'María García')
+    expect(mockSaveToDB).toHaveBeenCalledWith(mockVerses, 'María García')
   })
 
-  it('triggers a download when verses are provided', () => {
-    savePoem(mockVerses, 'María García')
-    expect(clickSpy).toHaveBeenCalledTimes(1)
-    expect(createObjectURL).toHaveBeenCalledTimes(1)
-    expect(revokeObjectURL).toHaveBeenCalledWith('blob:test-url')
+  it('still calls poemStorage.savePoem with empty verses (storage handles guard)', () => {
+    savePoemWrapper([], 'Test Author')
+    expect(mockSaveToDB).toHaveBeenCalledWith([], 'Test Author')
   })
 
-  it('uses author name in filename', () => {
-    savePoem(mockVerses, 'María García')
-    expect(createdElement.download).toMatch(/poema-Mar/)
-  })
-
-  it('uses "anonimo" in filename when author name is empty', () => {
-    savePoem(mockVerses, '')
-    expect(createdElement.download).toMatch(/poema-anonimo/)
-  })
-
-  it('creates JSON blob with correct type', () => {
-    savePoem(mockVerses, 'Test User')
-    const blobArg = createObjectURL.mock.calls[0][0] as Blob
-    expect(blobArg.type).toBe('application/json')
-  })
-
-  it('appends and removes anchor element from DOM', () => {
-    savePoem(mockVerses, 'Test')
-    expect(document.body.appendChild).toHaveBeenCalledTimes(1)
-    expect(document.body.removeChild).toHaveBeenCalledTimes(1)
+  it('does not throw when poemStorage.savePoem rejects', async () => {
+    const error = new Error('IndexedDB unavailable')
+    mockSaveToDB.mockRejectedValueOnce(error)
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    savePoemWrapper(mockVerses, 'Test')
+    // Flush the microtask queue
+    await new Promise((r) => setTimeout(r, 0))
+    expect(warnSpy).toHaveBeenCalled()
+    warnSpy.mockRestore()
   })
 })

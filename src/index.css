@@ -50,8 +50,8 @@ body {
     overflow: visible;
   }
 
-  /* Hide main UI elements during print */
-  #root > div > div:not(.print-content) {
+  /* Hide the entire app — PrintContent is rendered via portal directly under body */
+  #root {
     display: none !important;
   }
 

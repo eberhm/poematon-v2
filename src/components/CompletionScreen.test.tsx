@@ -21,9 +21,11 @@ describe('CompletionScreen', () => {
     ).toBeInTheDocument()
   })
 
-  it('displays auto-reload message', () => {
+  it('displays auto-reload message with countdown', () => {
     renderWithTheme(<CompletionScreen open={true} />)
-    expect(screen.getByText('Recargando en 10 segundos...')).toBeInTheDocument()
+    expect(
+      screen.getByText(/Recargando en \d+ segundos\.\.\./)
+    ).toBeInTheDocument()
   })
 
   it('has correct ARIA labels', () => {
