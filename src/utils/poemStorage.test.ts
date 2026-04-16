@@ -160,11 +160,11 @@ describe('poemStorage', () => {
 
   it('savePoem stores a poem with correct shape', async () => {
     const { savePoem } = await import('./poemStorage')
-    await savePoem(mockVerses, 'Test Author')
+    await savePoem(mockVerses)
     expect(store.add).toHaveBeenCalledWith(
       expect.objectContaining({
         id: 'test-uuid-1234',
-        author: 'Test Author',
+        author: 'Anónimo',
         version: 'v1',
         verses: [
           {
@@ -180,16 +180,8 @@ describe('poemStorage', () => {
 
   it('savePoem returns early when verses are empty', async () => {
     const { savePoem } = await import('./poemStorage')
-    await savePoem([], 'Author')
+    await savePoem([])
     expect(store.add).not.toHaveBeenCalled()
-  })
-
-  it('savePoem uses "Anónimo" when author name is empty', async () => {
-    const { savePoem } = await import('./poemStorage')
-    await savePoem(mockVerses, '')
-    expect(store.add).toHaveBeenCalledWith(
-      expect.objectContaining({ author: 'Anónimo' })
-    )
   })
 
   it('getAllPoems returns poems sorted by timestamp descending', async () => {
@@ -255,7 +247,7 @@ describe('poemStorage', () => {
     stubIDB(db, true)
 
     const { savePoem } = await import('./poemStorage')
-    await savePoem(mockVerses, 'Test')
+    await savePoem(mockVerses)
     expect(db.createObjectStore).toHaveBeenCalledWith('poems', {
       keyPath: 'id',
     })

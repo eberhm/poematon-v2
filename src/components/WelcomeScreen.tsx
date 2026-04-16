@@ -1,20 +1,18 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Typography, Modal, TextField } from '@mui/material'
+import { Box, Button, Typography, Modal } from '@mui/material'
 import coronaLogo from '/corona.png'
 import { RetroBackground } from './RetroBackground'
 
 interface WelcomeScreenProps {
   open: boolean
-  onStart: (authorName: string) => void
+  onStart: () => void
 }
 
 export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
-  const [name, setName] = useState('')
   const navigate = useNavigate()
 
   const handleStart = () => {
-    onStart(name.trim())
+    onStart()
   }
 
   return (
@@ -166,46 +164,6 @@ export function WelcomeScreen({ open, onStart }: WelcomeScreenProps) {
                   .
                 </li>
               </Typography>
-            </Box>
-
-            {/* Name Input */}
-            <Box sx={{ marginBottom: 3, width: '100%', maxWidth: '400px' }}>
-              <Typography
-                sx={{
-                  color: '#fff',
-                  fontSize: '16px',
-                  marginBottom: 1,
-                  textAlign: 'center',
-                }}
-              >
-                Tu nombre (opcional):
-              </Typography>
-              <TextField
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Escribe tu nombre aquí"
-                variant="outlined"
-                fullWidth
-                inputProps={{ maxLength: 50 }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleStart()
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    color: '#fff',
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    borderRadius: '10px',
-                    '& fieldset': {
-                      borderColor: 'rgba(207,193,64,0.5)',
-                    },
-                    '&:hover fieldset': { borderColor: '#cfc140' },
-                    '&.Mui-focused fieldset': { borderColor: '#cfc140' },
-                  },
-                  '& input::placeholder': {
-                    color: 'rgba(255,255,255,0.4)',
-                  },
-                }}
-              />
             </Box>
 
             {/* Call to Action */}

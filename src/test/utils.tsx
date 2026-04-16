@@ -18,7 +18,7 @@ export function renderWithTheme(component: React.ReactElement) {
 export function renderWithContext(component: React.ReactElement) {
   return render(
     <ThemeProvider theme={theme}>
-      <PoematonProvider authorName="">{component}</PoematonProvider>
+      <PoematonProvider>{component}</PoematonProvider>
     </ThemeProvider>
   )
 }

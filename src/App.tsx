@@ -14,10 +14,8 @@ import { enterFullscreen } from './utils/fullscreen'
 
 function MainApp() {
   const [showWelcome, setShowWelcome] = useState(true)
-  const [authorName, setAuthorName] = useState('')
 
-  const handleStart = (name: string) => {
-    setAuthorName(name)
+  const handleStart = () => {
     enterFullscreen()
 
     setTimeout(() => {
@@ -46,7 +44,7 @@ function MainApp() {
           <WelcomeScreen open={showWelcome} onStart={handleStart} />
 
           {!showWelcome && (
-            <PoematonProvider authorName={authorName}>
+            <PoematonProvider>
               <PoematonSectionList />
             </PoematonProvider>
           )}
