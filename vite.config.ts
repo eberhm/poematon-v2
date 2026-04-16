@@ -1,13 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
-import { RangeRequestsPlugin } from 'workbox-range-requests'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'corona.png', 'background.portada.png'],
       manifest: {
@@ -39,32 +41,9 @@ export default defineConfig({
           },
         ],
       },
-      workbox: {
+      injectManifest: {
         // Cache all app assets for offline use (audio excluded — too large for precache)
         globPatterns: ['**/*.{js,css,html,ico,png,woff,woff2}'],
-        runtimeCaching: [
-          {
-            urlPattern: /\.mp3$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'audio-cache',
-              plugins: [new RangeRequestsPlugin()],
-              expiration: {
-                maxEntries: 10,
-              },
-            },
-          },
-          {
-            urlPattern: /\/data\/.*\.json$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'data-cache',
-              expiration: {
-                maxEntries: 10,
-              },
-            },
-          },
-        ],
       },
     }),
   ],
