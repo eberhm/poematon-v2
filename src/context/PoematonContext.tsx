@@ -20,16 +20,12 @@ export type { PoematonContextState }
 
 export interface PoematonProviderProps {
   children: ReactNode
-  authorName: string
 }
 
 const TIMER_DURATION = 180 // 3 minutes in seconds
 const WARNING_TIME = 20 // Play warning at 20 seconds
 
-export function PoematonProvider({
-  children,
-  authorName,
-}: PoematonProviderProps) {
+export function PoematonProvider({ children }: PoematonProviderProps) {
   const [allVerses, setAllVerses] = useState<Verse[]>([])
   const [poemVerses, setPoemVerses] = useState<Verse[]>([])
   const [showMaxVersesAlert, setShowMaxVersesAlert] = useState(false)
@@ -41,7 +37,7 @@ export function PoematonProvider({
 
   const handleTimerExpire = useCallback(() => {
     stopAll()
-    savePoem(poemVerses, authorName)
+    savePoem(poemVerses)
     window.print()
     setShowCompletion(true)
     setIsSessionActive(false)
@@ -50,7 +46,7 @@ export function PoematonProvider({
     setTimeout(() => {
       window.location.reload()
     }, 10000)
-  }, [stopAll, poemVerses, authorName])
+  }, [stopAll, poemVerses])
 
   const {
     timeLeft,
@@ -118,7 +114,7 @@ export function PoematonProvider({
   )
 
   const handlePrint = useCallback(() => {
-    savePoem(poemVerses, authorName)
+    savePoem(poemVerses)
 
     // Optional: Post to video server if configured
     const params = new URLSearchParams(window.location.search)
@@ -127,7 +123,7 @@ export function PoematonProvider({
       fetch(videoServer, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ verses: poemVerses, author: authorName }),
+        body: JSON.stringify({ verses: poemVerses }),
       }).catch((error) => {
         console.warn('Failed to post to video server:', error)
       })
@@ -141,12 +137,11 @@ export function PoematonProvider({
     setTimeout(() => {
       window.location.reload()
     }, 10000)
-  }, [poemVerses, authorName, stopAll])
+  }, [poemVerses, stopAll])
 
   const value: PoematonContextState = {
     allVerses,
     poemVerses,
-    authorName,
     timeLeft,
     isTimerRunning: isRunning,
     formattedTime,

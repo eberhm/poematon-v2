@@ -3,7 +3,6 @@ import type { Verse } from '../types'
 
 export interface PrintContentProps {
   poemVerses: Verse[]
-  authorName?: string
 }
 
 /**
@@ -11,16 +10,13 @@ export interface PrintContentProps {
  * This keeps it outside #root so that hiding #root in @media print
  * doesn't affect print output.
  */
-export function PrintContent({ poemVerses, authorName }: PrintContentProps) {
+export function PrintContent({ poemVerses }: PrintContentProps) {
   if (poemVerses.length === 0) return null
 
   return createPortal(
     <div className="print-content" style={{ display: 'none' }}>
       {/* Poem Title */}
       <div className="print-title">POEMATÓN. Tu Poema ready-made:</div>
-
-      {/* Author */}
-      {authorName && <div className="print-author">Autor/a: {authorName}</div>}
 
       {/* Verses */}
       <div className="print-verses">

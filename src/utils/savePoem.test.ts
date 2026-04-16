@@ -39,21 +39,21 @@ describe('savePoem', () => {
     vi.clearAllMocks()
   })
 
-  it('calls poemStorage.savePoem with verses and author', () => {
-    savePoemWrapper(mockVerses, 'María García')
-    expect(mockSaveToDB).toHaveBeenCalledWith(mockVerses, 'María García')
+  it('calls poemStorage.savePoem with verses', () => {
+    savePoemWrapper(mockVerses)
+    expect(mockSaveToDB).toHaveBeenCalledWith(mockVerses)
   })
 
   it('still calls poemStorage.savePoem with empty verses (storage handles guard)', () => {
-    savePoemWrapper([], 'Test Author')
-    expect(mockSaveToDB).toHaveBeenCalledWith([], 'Test Author')
+    savePoemWrapper([])
+    expect(mockSaveToDB).toHaveBeenCalledWith([])
   })
 
   it('does not throw when poemStorage.savePoem rejects', async () => {
     const error = new Error('IndexedDB unavailable')
     mockSaveToDB.mockRejectedValueOnce(error)
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    savePoemWrapper(mockVerses, 'Test')
+    savePoemWrapper(mockVerses)
     // Flush the microtask queue
     await new Promise((r) => setTimeout(r, 0))
     expect(warnSpy).toHaveBeenCalled()

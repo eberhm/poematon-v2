@@ -23,16 +23,13 @@ function openDB(): Promise<IDBDatabase> {
   })
 }
 
-export async function savePoem(
-  poemVerses: Verse[],
-  authorName: string
-): Promise<void> {
+export async function savePoem(poemVerses: Verse[]): Promise<void> {
   if (poemVerses.length === 0) return
 
   const poem: SavedPoem = {
     id: uuidv4(),
     timestamp: new Date().toISOString(),
-    author: authorName.trim() || 'Anónimo',
+    author: 'Anónimo',
     version: getVersionFromURL(),
     verses: poemVerses.map((v) => ({
       text: v.value,
